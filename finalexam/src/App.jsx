@@ -10,6 +10,21 @@ function App() {
     setSearchTerm(event.target.value);
   };
 
+  const highlightText = (text, searchTerm) => {
+    if (!searchTerm) return text;
+
+    const regex = new RegExp(`(${searchTerm})`, 'gi');
+    const parts = text.split(regex);
+
+    return parts.map((part, index) => {
+      if (part.toLowerCase() === searchTerm.toLowerCase()) {
+        return <mark key={index}>{part}</mark>;
+      } else {
+        return part;
+      }
+    });
+  };
+
   const filteredFoods = foods.filter(food =>
     food.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     food.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -26,19 +41,12 @@ function App() {
       />
       {filteredFoods.map(food => (
         <div key={food.id} className="food-item">
-          <div className="food-name" dangerouslySetInnerHTML={{ __html: highlightMatches(food.name, searchTerm) }}></div>
-          <div className="food-description" dangerouslySetInnerHTML={{ __html: highlightMatches(food.description, searchTerm) }}></div>
+          <div className="food-name">{highlightText(food.name, searchTerm)}</div>
+          <div className="food-description">{highlightText(food.description, searchTerm)}</div>
         </div>
       ))}
     </div>
   );
 }
-
-// Function to highlight matches
-const highlightMatches = (text, searchTerm) => {
-  if (!searchTerm) return text;
-  const regex = new RegExp(`(${searchTerm})`, 'gi');
-  return text.replace(regex, '<mark>$1</mark>');
-};
 
 export default App;
