@@ -1,12 +1,12 @@
 // MenuItem.jsx
 import React from 'react';
-import './MenuItem.css';
+import styles from './MenuItem.module.css'; // Import CSS module
 
 function MenuItem({ name, description }) {
     return (
-        <div className="menu-item">
-            <div className="name">{name}</div>
-            <div className="description">{description}</div>
+        <div className={styles['menu-item']}>
+            <div className={styles.name}>{name}</div>
+            <div className={styles.description}> {description}</div> {/* Add a space before description */}
         </div>
     );
 }

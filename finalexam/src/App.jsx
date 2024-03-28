@@ -25,12 +25,12 @@ function App() {
       />
       {filteredFoods.map(food => (
         <div key={food.id} className="food-item">
-          <span>
-            {highlightMatches(food.name, searchTerm)}
-          </span>
-          <span>
-            {food.description}
-          </span>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: highlightMatches(food.name, searchTerm)
+            }}
+          />
+          <span>{food.description}</span>
         </div>
       ))}
     </div>
