@@ -11,7 +11,8 @@ function App() {
   };
 
   const filteredFoods = foods.filter(food =>
-    food.name.toLowerCase().includes(searchTerm.toLowerCase())
+    food.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    food.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -26,7 +27,7 @@ function App() {
       {filteredFoods.map(food => (
         <div key={food.id} className="food-item">
           <div className="food-name" dangerouslySetInnerHTML={{ __html: highlightMatches(food.name, searchTerm) }}></div>
-          <div className="food-description">{food.description}</div>
+          <div className="food-description" dangerouslySetInnerHTML={{ __html: highlightMatches(food.description, searchTerm) }}></div>
         </div>
       ))}
     </div>
